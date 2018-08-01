@@ -20,7 +20,6 @@ along with CVXPY.  If not, see <http://www.gnu.org/licenses/>.
 import cvxpy.settings as s
 from cvxpy.constraints.bool_constr import BoolConstr
 
-
 class IntConstr(BoolConstr):
     """
     An integer constraint:

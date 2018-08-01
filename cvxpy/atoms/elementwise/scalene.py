@@ -20,7 +20,6 @@ along with CVXPY.  If not, see <http://www.gnu.org/licenses/>.
 from cvxpy.atoms.elementwise.pos import pos
 from cvxpy.atoms.elementwise.neg import neg
 
-
 def scalene(x, alpha, beta):
     """ Alias for alpha*pos(x) + beta*neg(x).
     """

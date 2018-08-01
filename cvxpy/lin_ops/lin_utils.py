@@ -23,7 +23,6 @@ import numpy as np
 
 # Utility functions for dealing with LinOp.
 
-
 class Counter(object):
     """A counter for ids.
 
@@ -32,12 +31,10 @@ class Counter(object):
     count : int
         The current count.
     """
-
     def __init__(self):
         self.count = 0
 
 ID_COUNTER = Counter()
-
 
 def get_id():
     """Returns a new id and updates the id counter.
@@ -50,7 +47,6 @@ def get_id():
     new_id = ID_COUNTER.count
     ID_COUNTER.count += 1
     return new_id
-
 
 def create_var(size, var_id=None):
     """Creates a new internal variable.
@@ -71,7 +67,6 @@ def create_var(size, var_id=None):
         var_id = get_id()
     return lo.LinOp(lo.VARIABLE, size, [], var_id)
 
-
 def create_param(value, size):
     """Wraps a parameter.
 
@@ -88,7 +83,6 @@ def create_param(value, size):
         A LinOp wrapping the parameter.
     """
     return lo.LinOp(lo.PARAM, size, [], value)
-
 
 def create_const(value, size, sparse=False):
     """Wraps a constant.
@@ -111,14 +105,13 @@ def create_const(value, size, sparse=False):
     if size == (1, 1):
         op_type = lo.SCALAR_CONST
         if not np.isscalar(value):
-            value = value[0, 0]
+            value = value[0,0]
     # Check if sparse.
     elif sparse:
         op_type = lo.SPARSE_CONST
     else:
         op_type = lo.DENSE_CONST
     return lo.LinOp(op_type, size, [], value)
-
 
 def sum_expr(operators):
     """Add linear operators.
@@ -135,7 +128,6 @@ def sum_expr(operators):
     """
     return lo.LinOp(lo.SUM, operators[0].size, operators, None)
 
-
 def neg_expr(operator):
     """Negate an operator.
 
@@ -150,7 +142,6 @@ def neg_expr(operator):
         The negated operator.
     """
     return lo.LinOp(lo.NEG, operator.size, [operator], None)
-
 
 def sub_expr(lh_op, rh_op):
     """Difference of linear operators.
@@ -168,7 +159,6 @@ def sub_expr(lh_op, rh_op):
         A LinOp representing the difference of the operators.
     """
     return sum_expr([lh_op, neg_expr(rh_op)])
-
 
 def mul_expr(lh_op, rh_op, size):
     """Multiply two linear operators, with the constant on the left.
@@ -189,7 +179,6 @@ def mul_expr(lh_op, rh_op, size):
     """
     return lo.LinOp(lo.MUL, size, [rh_op], lh_op)
 
-
 def rmul_expr(lh_op, rh_op, size):
     """Multiply two linear operators, with the constant on the right.
 
@@ -209,7 +198,6 @@ def rmul_expr(lh_op, rh_op, size):
     """
     return lo.LinOp(lo.RMUL, size, [lh_op], rh_op)
 
-
 def mul_elemwise(lh_op, rh_op):
     """Multiply two linear operators elementwise.
 
@@ -227,7 +215,6 @@ def mul_elemwise(lh_op, rh_op):
     """
     return lo.LinOp(lo.MUL_ELEM, lh_op.size, [rh_op], lh_op)
 
-
 def kron(lh_op, rh_op, size):
     """Kronecker product of two matrices.
 
@@ -244,7 +231,6 @@ def kron(lh_op, rh_op, size):
         A linear operator representing the Kronecker product.
     """
     return lo.LinOp(lo.KRON, size, [rh_op], lh_op)
-
 
 def div_expr(lh_op, rh_op):
     """Divide one linear operator by another.
@@ -267,7 +253,6 @@ def div_expr(lh_op, rh_op):
     """
     return lo.LinOp(lo.DIV, lh_op.size, [lh_op], rh_op)
 
-
 def promote(operator, size):
     """Promotes a scalar operator to the given size.
 
@@ -285,7 +270,6 @@ def promote(operator, size):
     """
     return lo.LinOp(lo.PROMOTE, size, [operator], None)
 
-
 def sum_entries(operator):
     """Sum the entries of an operator.
 
@@ -301,7 +285,6 @@ def sum_entries(operator):
     """
     return lo.LinOp(lo.SUM_ENTRIES, (1, 1), [operator], None)
 
-
 def trace(operator):
     """Sum the diagonal entries of an operator.
 
@@ -316,7 +299,6 @@ def trace(operator):
         An operator representing the sum of the diagonal entries.
     """
     return lo.LinOp(lo.TRACE, (1, 1), [operator], None)
-
 
 def index(operator, size, keys):
     """Indexes/slices an operator.
@@ -337,7 +319,6 @@ def index(operator, size, keys):
     """
     return lo.LinOp(lo.INDEX, size, [operator], keys)
 
-
 def conv(lh_op, rh_op, size):
     """1D discrete convolution of two vectors.
 
@@ -357,7 +338,6 @@ def conv(lh_op, rh_op, size):
     """
     return lo.LinOp(lo.CONV, size, [rh_op], lh_op)
 
-
 def transpose(operator):
     """Transposes an operator.
 
@@ -373,7 +353,6 @@ def transpose(operator):
     """
     size = (operator.size[1], operator.size[0])
     return lo.LinOp(lo.TRANSPOSE, size, [operator], None)
-
 
 def reshape(operator, size):
     """Reshapes an operator.
@@ -392,7 +371,6 @@ def reshape(operator, size):
     """
     return lo.LinOp(lo.RESHAPE, size, [operator], None)
 
-
 def diag_vec(operator):
     """Converts a vector to a diagonal matrix.
 
@@ -409,7 +387,6 @@ def diag_vec(operator):
     size = (operator.size[0], operator.size[0])
     return lo.LinOp(lo.DIAG_VEC, size, [operator], None)
 
-
 def diag_mat(operator):
     """Converts the diagonal of a matrix to a vector.
 
@@ -425,7 +402,6 @@ def diag_mat(operator):
     """
     size = (operator.size[0], 1)
     return lo.LinOp(lo.DIAG_MAT, size, [operator], None)
-
 
 def upper_tri(operator):
     """Vectorized upper triangular portion of a square matrix.
@@ -444,7 +420,6 @@ def upper_tri(operator):
     size = ((entries - operator.size[0])//2, 1)
     return lo.LinOp(lo.UPPER_TRI, size, [operator], None)
 
-
 def hstack(operators, size):
     """Concatenates operators horizontally.
 
@@ -461,7 +436,6 @@ def hstack(operators, size):
        LinOp representing the stacked expression.
     """
     return lo.LinOp(lo.HSTACK, size, operators, None)
-
 
 def vstack(operators, size):
     """Concatenates operators vertically.
@@ -480,7 +454,6 @@ def vstack(operators, size):
     """
     return lo.LinOp(lo.VSTACK, size, operators, None)
 
-
 def get_constr_expr(lh_op, rh_op):
     """Returns the operator in the constraint.
     """
@@ -489,7 +462,6 @@ def get_constr_expr(lh_op, rh_op):
         return lh_op
     else:
         return sum_expr([lh_op, neg_expr(rh_op)])
-
 
 def create_eq(lh_op, rh_op=None, constr_id=None):
     """Creates an internal equality constraint.
@@ -512,7 +484,6 @@ def create_eq(lh_op, rh_op=None, constr_id=None):
     expr = get_constr_expr(lh_op, rh_op)
     return LinEqConstr(expr, constr_id, lh_op.size)
 
-
 def create_leq(lh_op, rh_op=None, constr_id=None):
     """Creates an internal less than or equal constraint.
 
@@ -534,7 +505,6 @@ def create_leq(lh_op, rh_op=None, constr_id=None):
     expr = get_constr_expr(lh_op, rh_op)
     return LinLeqConstr(expr, constr_id, lh_op.size)
 
-
 def create_geq(lh_op, rh_op=None, constr_id=None):
     """Creates an internal greater than or equal constraint.
 
@@ -554,7 +524,6 @@ def create_geq(lh_op, rh_op=None, constr_id=None):
     if rh_op is not None:
         rh_op = neg_expr(rh_op)
     return create_leq(neg_expr(lh_op), rh_op, constr_id)
-
 
 def get_expr_vars(operator):
     """Get a list of the variables in the operator and their sizes.
@@ -576,7 +545,6 @@ def get_expr_vars(operator):
         for arg in operator.args:
             vars_ += get_expr_vars(arg)
         return vars_
-
 
 def get_expr_params(operator):
     """Get a list of the parameters in the operator.
@@ -602,7 +570,6 @@ def get_expr_params(operator):
             params += get_expr_params(operator.data)
         return params
 
-
 def copy_constr(constr, func):
     """Creates a copy of the constraint modified according to func.
 
@@ -620,7 +587,6 @@ def copy_constr(constr, func):
     """
     expr = func(constr.expr)
     return type(constr)(expr, constr.constr_id, constr.size)
-
 
 def replace_new_vars(expr, id_to_new_var):
     """Replaces the given variables in the expression.
@@ -647,7 +613,6 @@ def replace_new_vars(expr, id_to_new_var):
             )
         return lo.LinOp(expr.type, expr.size, new_args, expr.data)
 
-
 def check_param_val(param):
     """Wrapper on accessing a parameter.
 
@@ -670,7 +635,6 @@ def check_param_val(param):
         raise ValueError("Problem has missing parameter value.")
     else:
         return val
-
 
 def replace_params_with_consts(expr):
     """Replaces parameters with constant nodes.

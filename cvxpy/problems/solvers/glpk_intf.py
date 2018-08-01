@@ -20,7 +20,6 @@ along with CVXPY.  If not, see <http://www.gnu.org/licenses/>.
 import cvxpy.settings as s
 from cvxpy.problems.solvers.cvxopt_intf import CVXOPT
 
-
 class GLPK(CVXOPT):
     """An interface for the GLPK solver.
     """
@@ -40,8 +39,8 @@ class GLPK(CVXOPT):
     def import_solver(self):
         """Imports the solver.
         """
+        import cvxopt
         from cvxopt import glpk
-        glpk  # For flake8
 
     def solve(self, objective, constraints, cached_data,
               warm_start, verbose, solver_opts):
@@ -67,8 +66,7 @@ class GLPK(CVXOPT):
         tuple
             (status, optimal value, primal, equality dual, inequality dual)
         """
-        import cvxopt
-        import cvxopt.solvers
+        import cvxopt, cvxopt.solvers
         data = self.get_problem_data(objective, constraints, cached_data)
         # Save original cvxopt solver options.
         old_options = cvxopt.solvers.options.copy()
@@ -93,7 +91,7 @@ class GLPK(CVXOPT):
                                              data[s.B],
                                              solver="glpk")
 
-        # Catch exceptions in CVXOPT and convert them to solver errors.
+         # Catch exceptions in CVXOPT and convert them to solver errors.
         except ValueError:
             results_dict = {"status": "unknown"}
 

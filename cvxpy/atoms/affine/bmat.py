@@ -20,7 +20,6 @@ along with CVXPY.  If not, see <http://www.gnu.org/licenses/>.
 from cvxpy.atoms.affine.vstack import vstack
 from cvxpy.atoms.affine.hstack import hstack
 
-
 def bmat(block_lists):
     """Constructs a block matrix.
 

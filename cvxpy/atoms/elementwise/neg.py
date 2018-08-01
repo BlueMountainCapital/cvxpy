@@ -19,7 +19,6 @@ along with CVXPY.  If not, see <http://www.gnu.org/licenses/>.
 
 from cvxpy.atoms.elementwise.min_elemwise import min_elemwise
 
-
 def neg(x):
     """ Alias for -min_elemwise{x, 0}.
 

@@ -20,7 +20,6 @@ along with CVXPY.  If not, see <http://www.gnu.org/licenses/>.
 from cvxpy.expressions.expression import Expression
 from cvxpy.atoms.affine.reshape import reshape
 
-
 def vec(X):
     """Flattens the matrix X into a vector in column-major order.
 

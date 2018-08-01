@@ -24,7 +24,6 @@ import numpy as np
 if sys.version_info >= (3, 0):
     from functools import reduce
 
-
 class max_elemwise(Elementwise):
     """ Elementwise maximum. """
 

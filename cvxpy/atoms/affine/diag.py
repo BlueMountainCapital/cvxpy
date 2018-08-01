@@ -23,7 +23,6 @@ import cvxpy.interface as intf
 import cvxpy.lin_ops.lin_utils as lu
 import numpy as np
 
-
 def diag(expr):
     """Extracts the diagonal from a matrix or makes a vector a diagonal matrix.
 
@@ -50,11 +49,9 @@ def diag(expr):
     else:
         raise ValueError("Argument to diag must be a vector or square matrix.")
 
-
 class diag_vec(AffAtom):
     """Converts a vector into a diagonal matrix.
     """
-
     def __init__(self, expr):
         super(diag_vec, self).__init__(expr)
 
@@ -92,11 +89,9 @@ class diag_vec(AffAtom):
         """
         return (lu.diag_vec(arg_objs[0]), [])
 
-
 class diag_mat(AffAtom):
     """Extracts the diagonal from a square matrix.
     """
-
     def __init__(self, expr):
         super(diag_mat, self).__init__(expr)
 

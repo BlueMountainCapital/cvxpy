@@ -17,7 +17,6 @@ You should have received a copy of the GNU General Public License
 along with CVXPY.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-
 class ProblemData(object):
     """A wrapper for the symbolic and numerical data for a problem.
 
@@ -30,7 +29,6 @@ class ProblemData(object):
     prev_result : dict
         The result of the last solve.
     """
-
     def __init__(self):
         self.sym_data = None
         self.matrix_data = None

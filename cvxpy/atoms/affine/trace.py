@@ -21,7 +21,6 @@ from cvxpy.atoms.affine.affine_atom import AffAtom
 import cvxpy.lin_ops.lin_utils as lu
 import numpy as np
 
-
 class trace(AffAtom):
     """The sum of the diagonal entries of a matrix.
 

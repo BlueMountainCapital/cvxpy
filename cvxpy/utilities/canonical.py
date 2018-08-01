@@ -20,7 +20,6 @@ along with CVXPY.  If not, see <http://www.gnu.org/licenses/>.
 import abc
 from cvxpy.utilities import performance_utils as pu
 
-
 class Canonical(object):
     """
     An interface for objects that can be canonicalized.
@@ -61,15 +60,6 @@ class Canonical(object):
 
         Returns:
             A list of Parameter objects.
-        """
-        return NotImplemented
-
-    @abc.abstractmethod
-    def constants(self):
-        """The objects constant objects.
-
-        Returns:
-            A list of Constant objects.
         """
         return NotImplemented
 

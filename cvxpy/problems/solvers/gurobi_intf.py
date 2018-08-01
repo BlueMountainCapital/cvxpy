@@ -24,7 +24,6 @@ import numpy as np
 from cvxpy.problems.solvers.solver import Solver
 from scipy.sparse import dok_matrix
 
-
 class GUROBI(Solver):
     """An interface for the Gurobi solver.
     """
@@ -61,7 +60,6 @@ class GUROBI(Solver):
         """Imports the solver.
         """
         import gurobipy
-        gurobipy  # For flake8
 
     def matrix_intf(self):
         """The interface for matrices passed to the solver.
@@ -181,7 +179,7 @@ class GUROBI(Solver):
                 for i in I_unique:
 
                     # Remove old constraint if it exists
-                    if gur_constrs[i] is not None:
+                    if gur_constrs[i] != None:
                         model.remove(gur_constrs[i])
                         gur_constrs[i] = None
 
@@ -194,7 +192,7 @@ class GUROBI(Solver):
                         if i < data[s.DIMS][s.EQ_DIM]:
                             ctype = gurobipy.GRB.EQUAL
                         elif data[s.DIMS][s.EQ_DIM] <= i \
-                                < data[s.DIMS][s.EQ_DIM] + data[s.DIMS][s.LEQ_DIM]:
+                             < data[s.DIMS][s.EQ_DIM] + data[s.DIMS][s.LEQ_DIM]:
                             ctype = gurobipy.GRB.LESS_EQUAL
                         gur_constrs[i] = model.addConstr(expr, ctype, b[i])
 
@@ -252,7 +250,7 @@ class GUROBI(Solver):
                 soc_start += constr_len
 
             gur_constrs = eq_constrs + ineq_constrs + \
-                soc_constrs + new_leq_constrs
+                          soc_constrs + new_leq_constrs
             model.update()
 
         # Set verbosity and other parameters
@@ -275,7 +273,7 @@ class GUROBI(Solver):
             if not self.is_mip(data):
                 vals = []
                 for lc in gur_constrs:
-                    if lc is not None:
+                    if lc != None:
                         if isinstance(lc, gurobipy.QConstr):
                             vals.append(lc.QCPi)
                         else:

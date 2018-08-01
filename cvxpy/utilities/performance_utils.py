@@ -20,7 +20,6 @@ along with CVXPY.  If not, see <http://www.gnu.org/licenses/>.
 # Taken from
 # http://stackoverflow.com/questions/3012421/python-lazy-property-decorator
 
-
 def lazyprop(func):
     """Wraps a property so it is lazily evaluated.
 
@@ -31,7 +30,6 @@ def lazyprop(func):
         A property that only does computation the first time it is called.
     """
     attr_name = '_lazy_' + func.__name__
-
     @property
     def _lazyprop(self):
         """A lazily evaluated propery.

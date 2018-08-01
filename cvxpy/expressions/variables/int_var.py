@@ -19,7 +19,6 @@ along with CVXPY.  If not, see <http://www.gnu.org/licenses/>.
 from cvxpy.expressions.variables.variable import Variable
 from cvxpy.constraints.int_constr import IntConstr
 
-
 class Int(Variable):
     """ An integer variable. """
 

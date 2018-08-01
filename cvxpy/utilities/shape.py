@@ -17,7 +17,6 @@ You should have received a copy of the GNU General Public License
 along with CVXPY.  If not, see <http://www.gnu.org/licenses/>.
 """
 
-
 def sum_shapes(shapes):
     """Give the shape resulting from summing a list of shapes.
 
@@ -35,7 +34,6 @@ def sum_shapes(shapes):
             raise ValueError(
                 "Incompatible dimensions" + len(shapes)*" %s" % tuple(shapes))
     return (rows, cols)
-
 
 def mul_shapes(lh_shape, rh_shape):
     """Give the shape resulting from multiplying two shapes.

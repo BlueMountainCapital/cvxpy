@@ -22,7 +22,6 @@ from cvxpy.atoms.norm_nuc import normNuc
 from cvxpy.atoms.sigma_max import sigma_max
 from cvxpy.atoms.pnorm import pnorm
 
-
 def norm(x, p=2, axis=None):
     """Wrapper on the different norm atoms.
 

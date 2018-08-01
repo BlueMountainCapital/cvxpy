@@ -20,7 +20,6 @@ along with CVXPY.  If not, see <http://www.gnu.org/licenses/>.
 import cvxpy.lin_ops.lin_utils as lu
 import abc
 
-
 class Constraint(object):
     """Abstract super class for constraints.
 
