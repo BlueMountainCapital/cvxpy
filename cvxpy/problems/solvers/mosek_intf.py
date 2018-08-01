@@ -209,9 +209,9 @@ class MOSEK(Solver):
                 current_con_index = len(b) + dims[s.LEQ_DIM]
 
                 for size_cone in dims[s.SOC_DIM]:
-                    row, col, el = sp.find(sp.eye(size_cone))
-                    row += current_con_index
-                    col += current_var_index
+                    row = np.arange(current_con_index, current_con_index + size_cone)
+                    col = np.arange(current_var_index, current_var_index + size_cone)
+                    el = np.ones(size_cone)
                     task.putaijlist(row, col, el)  # add a identity for each cone
                     # add a cone constraint
                     task.appendcone(mosek.conetype.quad,
