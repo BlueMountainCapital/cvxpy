@@ -143,7 +143,6 @@ class MOSEK(Solver):
                     def streamprinter(text):
                         import sys
                         sys.stdout.write(text)
-                        sys.stdout.flush()
                     env.set_Stream(mosek.streamtype.log, streamprinter)
                     task.set_Stream(mosek.streamtype.log, streamprinter)
 
