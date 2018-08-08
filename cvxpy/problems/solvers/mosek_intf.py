@@ -129,14 +129,14 @@ class MOSEK(Solver):
             (status, optimal value, primal, equality dual, inequality dual)
         """
         import mosek
-        with mosek.Env() as env:
+        kwargs = solver_opts.copy()
+        with mosek.Env(licensefile=kwargs.pop("license_file", None)) as env:
             with env.Task(0, 0) as task:
-                kwargs = sorted(solver_opts.keys())
-                if "mosek_params" in kwargs:
+                mosek_params = kwargs.pop("mosek_params", None)
+                if mosek_params is not None:
                     self._handle_mosek_params(task, solver_opts["mosek_params"])
-                    kwargs.remove("mosek_params")
                 if kwargs:
-                    raise ValueError("Invalid keyword-argument '%s'" % kwargs[0])
+                    raise ValueError("Invalid keyword-argument '%s'" % list(kwargs.keys())[0])
 
                 if verbose:
                     # Define a stream printer to grab output from MOSEK
